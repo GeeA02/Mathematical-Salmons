@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -461964213850424473, guid: ca9961c15c563e34880882234d8d8ea9, type: 3}
+  - {fileID: 2100000, guid: 279cf2691df8cca4fb3cdd5193e56553, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,7 +127,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 0.9960785, g: 0.854902, b: 0.5803922, a: 1}
   m_Intensity: 1
-  m_Range: 0.5
+  m_Range: 3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -165,7 +165,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
