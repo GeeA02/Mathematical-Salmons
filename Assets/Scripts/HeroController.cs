@@ -39,6 +39,13 @@ public class HeroController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.A)) WalkAnimation(KeyCode.A, false);
         if (Input.GetKeyUp(KeyCode.D)) WalkAnimation(KeyCode.D, false);
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isDirectionKeyPressed.Clear();
+
+            anim.SetTrigger("IsJumping");
+        }
+
         // while idle look at old "position"
         if (newPos == Vector3.zero)
             newPos = oldPos;
@@ -60,8 +67,8 @@ public class HeroController : MonoBehaviour
             if (!isDirectionKeyPressed.Any(x => x.Value))
             {
                 // enable walking animation
-                anim.SetBool("isIdle", false);
-                anim.SetBool("isWalking", true);
+                anim.SetBool("IsIdle", false);
+                anim.SetBool("IsWalking", true);
             }
 
             isDirectionKeyPressed[key] = true;
@@ -72,8 +79,8 @@ public class HeroController : MonoBehaviour
 
             if (!isDirectionKeyPressed.Any(x => x.Value))
             {
-                anim.SetBool("isIdle", true);
-                anim.SetBool("isWalking", false);
+                anim.SetBool("IsIdle", true);
+                anim.SetBool("IsWalking", false);
             }
         }
     }
