@@ -8,6 +8,11 @@ public class PlayerController : MonoBehaviour
     private float jumpForce = 5.0f;
     [SerializeField]
     private float moveSpeed = 5.0f;
+
+    uint pointsPi = 0;
+    uint pointsFi = 0;
+    uint pointsE = 0;
+
     private Rigidbody playerBody;
     private Vector3 inputVector;
     new private Collider collider;
@@ -33,4 +38,28 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     => Physics.Raycast(transform.position, Vector3.down, collider.bounds.size.y);
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("PointE"))
+        {
+            collider.gameObject.SetActive(false);
+            Destroy(collider.gameObject);
+            pointsE++;
+        }
+        else if (collider.gameObject.CompareTag("PointPi"))
+        {
+            collider.gameObject.SetActive(false);
+            Destroy(collider.gameObject);
+            pointsPi++;
+        }
+        else if (collider.gameObject.CompareTag("PointFi"))
+        {
+            collider.gameObject.SetActive(false);
+            Destroy(collider.gameObject);
+            pointsFi++;
+        }
+
+        Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi}");
+    }
 }
