@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class PlayerController : MonoBehaviour
     uint pointsPi = 0;
     uint pointsFi = 0;
     uint pointsE = 0;
+
+    public Text pointsPiText;
+    public Text pointsFiText;
+    public Text pointsEText;
 
     new private Rigidbody rigidbody;
     new private Collider playerCollider;
@@ -67,18 +72,21 @@ public class PlayerController : MonoBehaviour
             collider.gameObject.SetActive(false);
             Destroy(collider.gameObject);
             pointsE++;
+            pointsEText.text = "x " + pointsE.ToString();
         }
         else if (collider.gameObject.CompareTag("PointPi"))
         {
             collider.gameObject.SetActive(false);
             Destroy(collider.gameObject);
             pointsPi++;
+            pointsPiText.text = "x " + pointsPi.ToString();
         }
         else if (collider.gameObject.CompareTag("PointFi"))
         {
             collider.gameObject.SetActive(false);
             Destroy(collider.gameObject);
             pointsFi++;
+            pointsFiText.text = "x " + pointsFi.ToString();
         }
 
         Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi}");
