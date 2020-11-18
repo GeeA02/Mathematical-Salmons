@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Points
+  - PointE
+  - PointPi
+  - PointFi
   layers:
   - Default
   - TransparentFX
