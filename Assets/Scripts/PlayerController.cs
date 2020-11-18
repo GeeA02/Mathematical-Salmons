@@ -8,36 +8,57 @@ public class PlayerController : MonoBehaviour
     private float jumpForce = 5.0f;
     [SerializeField]
     private float moveSpeed = 5.0f;
+    [SerializeField]
+    private float rotateSpeed = 1.5f;
 
     uint pointsPi = 0;
     uint pointsFi = 0;
     uint pointsE = 0;
 
-    private Rigidbody playerBody;
+    new private Rigidbody rigidbody;
+    new private Collider playerCollider;
     private Vector3 inputVector;
-    new private Collider collider;
+    private Vector3 oldDirection;
     void Start()
     {
-        playerBody = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
+        rigidbody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<Collider>();
     }
 
     void Update()
     {
         var horizontal = Input.GetAxis("Horizontal") * moveSpeed;
         var vertical = Input.GetAxis("Vertical") * moveSpeed;
-        inputVector = new Vector3(horizontal, playerBody.velocity.y, vertical);
-        transform.LookAt(transform.position + new Vector3(inputVector.x, 0, inputVector.z));
-        playerBody.velocity = inputVector;
+
+        inputVector = new Vector3(horizontal, rigidbody.velocity.y, vertical);
+
+        Vector3 currDirection;
+
+        if (horizontal == 0 && vertical == 0){
+            currDirection = oldDirection;
+        }
+        else {
+            currDirection = new Vector3(horizontal, 0.0f, vertical);
+            oldDirection = currDirection;
+        }
+
+        transform.rotation = Quaternion.RotateTowards(
+                                            transform.rotation,
+                                            Quaternion.LookRotation(currDirection),
+                                            rotateSpeed);
+
+
+
+        rigidbody.velocity = inputVector;
 
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
-            playerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
 
     private bool IsGrounded()
-    => Physics.Raycast(transform.position, Vector3.down, collider.bounds.size.y);
+    => Physics.Raycast(transform.position, Vector3.down, playerCollider.bounds.size.y);
 
     private void OnTriggerEnter(Collider collider)
     {
