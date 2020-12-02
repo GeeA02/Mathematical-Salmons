@@ -12,18 +12,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float rotateSpeed = 1.5f;
 
+    //  v   POINTS  v
     uint pointsPi = 0;
     uint pointsFi = 0;
     uint pointsE = 0;
-
     public Text pointsPiText;
     public Text pointsFiText;
     public Text pointsEText;
+
+    //  v   HEALTH  v
+    public int health;
+    public int numOfHearts;
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
 
     new private Rigidbody rigidbody;
     new private Collider playerCollider;
     private Vector3 inputVector;
     private Vector3 oldDirection;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -60,6 +68,23 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+
+        // Health part
+        if (health > numOfHearts)
+            health = numOfHearts;
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < health)
+                hearts[i].sprite = fullHeart;
+            else
+                hearts[i].sprite = emptyHeart;
+
+            if (i < numOfHearts)
+                hearts[i].enabled = true;
+            else
+                hearts[i].enabled = false;
+        }
+
     }
 
     private bool IsGrounded()
@@ -67,28 +92,36 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.CompareTag("PointE"))
+        switch (collider.gameObject.tag)
         {
-            collider.gameObject.SetActive(false);
-            Destroy(collider.gameObject);
-            pointsE++;
-            pointsEText.text = "x " + pointsE.ToString();
-        }
-        else if (collider.gameObject.CompareTag("PointPi"))
-        {
-            collider.gameObject.SetActive(false);
-            Destroy(collider.gameObject);
-            pointsPi++;
-            pointsPiText.text = "x " + pointsPi.ToString();
-        }
-        else if (collider.gameObject.CompareTag("PointFi"))
-        {
-            collider.gameObject.SetActive(false);
-            Destroy(collider.gameObject);
-            pointsFi++;
-            pointsFiText.text = "x " + pointsFi.ToString();
+            case ("PointE"):
+                collider.gameObject.SetActive(false);
+                Destroy(collider.gameObject);
+                pointsE++;
+                pointsEText.text = "x " + pointsE.ToString();
+                break;
+            case ("PointPi"):
+                collider.gameObject.SetActive(false);
+                Destroy(collider.gameObject);
+                pointsPi++;
+                pointsPiText.text = "x " + pointsPi.ToString();
+                break;
+            case ("PointFi"):
+                collider.gameObject.SetActive(false);
+                Destroy(collider.gameObject);
+                pointsFi++;
+                pointsFiText.text = "x " + pointsFi.ToString();
+                break;
+            case ("Heart"):
+                if (health < 5)
+                {
+                    collider.gameObject.SetActive(false);
+                    health++;
+                    Destroy(collider.gameObject);
+                }
+                break;
         }
 
-        Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi}");
+        Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi} Hearts: {health}");
     }
 }
