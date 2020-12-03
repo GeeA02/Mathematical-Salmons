@@ -3,7 +3,12 @@ guid: 8cdcb5cefdfb8214d88e6503d5b2859f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pointsPiText: {instanceID: 0}
+  - pointsFiText: {instanceID: 0}
+  - pointsEText: {instanceID: 0}
+  - fullHeart: {fileID: 21300000, guid: 50dfab23bf5a7334f90e00a929425a9d, type: 3}
+  - emptyHeart: {fileID: 21300000, guid: 921d9c43e87a0b0499b6e79674ac5270, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
