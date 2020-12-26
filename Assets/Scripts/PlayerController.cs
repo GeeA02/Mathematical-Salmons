@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     public Text pointsFiText;
     public Text pointsEText;
 
+    // v    GAMEOVER SCREEN v
+    public RawImage gameOverImage;
+    public Text gameOverText;
+
     //  v   HEALTH  v
     public int health;
     public int numOfHearts;
@@ -112,6 +116,9 @@ public class PlayerController : MonoBehaviour
                 pointsFi++;
                 pointsFiText.text = "x " + pointsFi.ToString();
                 break;
+            case ("Obstacle"):
+                Hurt();
+                break;
             case ("Heart"):
                 if (health < 5)
                 {
@@ -123,5 +130,19 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi} Hearts: {health}");
+    }
+
+    private void Hurt()
+    {
+        if (health > 0)
+            health--;
+
+        if (health == 0)
+        {
+            gameOverText.text = "GAME OVER"; 
+            gameOverImage.rectTransform.sizeDelta = new Vector2(1066, 508);
+        }
+        Debug.Log("OBSTACLE!!!!!!!!!!!!!!!!!11ONEONE");
+        transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z - 1);
     }
 }

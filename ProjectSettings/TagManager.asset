@@ -9,6 +9,7 @@ TagManager:
   - PointPi
   - PointFi
   - Heart
+  - Obstacle
   layers:
   - Default
   - TransparentFX
