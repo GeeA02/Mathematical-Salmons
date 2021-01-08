@@ -36,42 +36,57 @@ public class PlayerController : MonoBehaviour
     private Vector3 inputVector;
     private Vector3 oldDirection;
 
+    // v   ANIMATIONS   v
+    static Animator anim;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        var horizontal = Input.GetAxis("Horizontal") * moveSpeed;
-        var vertical = Input.GetAxis("Vertical") * moveSpeed;
+        //  v   moving  v
 
-        inputVector = new Vector3(horizontal, rigidbody.velocity.y, vertical);
-
-        Vector3 currDirection;
-
-        if (horizontal == 0 && vertical == 0){
-            currDirection = oldDirection;
+        float translation = Input.GetAxis("Vertical") * moveSpeed;
+        float rotation = Input.GetAxis("Horizontal") * rotateSpeed;
+        translation *= Time.deltaTime;
+        rotation *= Time.deltaTime;
+        transform.Translate(0, 0, translation);
+        transform.Rotate(0, rotation, 0);
+        if (translation > 0)
+        {
+            anim.SetBool("isRunning", true);
+            anim.SetBool("isIddle", false);
         }
-        else {
-            currDirection = new Vector3(horizontal, 0.0f, vertical);
-            oldDirection = currDirection;
+        else if(translation < 0)
+        {
+            anim.SetBool("isRunningBackward", true);
+            anim.SetBool("isIddle", false);
         }
-
-        transform.rotation = Quaternion.RotateTowards(
-                                            transform.rotation,
-                                            Quaternion.LookRotation(currDirection),
-                                            rotateSpeed);
-
-
-
-        rigidbody.velocity = inputVector;
+        else
+        {
+            anim.SetBool("isRunningBackward", false);
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isIddle", true);
+        }
 
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
+            anim.SetTrigger("isJumping");
             rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            anim.SetTrigger("isAttacking");
+
+        }
+
+
 
         // Health part
         if (health > numOfHearts)
@@ -118,6 +133,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case ("Obstacle"):
                 Hurt();
+                anim.SetTrigger("isHurted");
                 break;
             case ("Heart"):
                 if (health < 5)
@@ -142,7 +158,7 @@ public class PlayerController : MonoBehaviour
             gameOverText.text = "GAME OVER"; 
             gameOverImage.rectTransform.sizeDelta = new Vector2(1066, 508);
         }
-        Debug.Log("OBSTACLE!!!!!!!!!!!!!!!!!11ONEONE");
-        transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z - 1);
+
+        rigidbody.AddForce(Vector3.back * 5, ForceMode.Impulse);
     }
 }
