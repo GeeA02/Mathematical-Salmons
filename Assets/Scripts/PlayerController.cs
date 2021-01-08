@@ -12,54 +12,98 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float rotateSpeed = 1.5f;
 
+    //  v   POINTS  v
     uint pointsPi = 0;
     uint pointsFi = 0;
     uint pointsE = 0;
-
     public Text pointsPiText;
     public Text pointsFiText;
     public Text pointsEText;
+
+    // v    GAMEOVER SCREEN v
+    public RawImage gameOverImage;
+    public Text gameOverText;
+
+    //  v   HEALTH  v
+    public int health;
+    public int numOfHearts;
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
 
     new private Rigidbody rigidbody;
     new private Collider playerCollider;
     private Vector3 inputVector;
     private Vector3 oldDirection;
+
+    // v   ANIMATIONS   v
+    static Animator anim;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        var horizontal = Input.GetAxis("Horizontal") * moveSpeed;
-        var vertical = Input.GetAxis("Vertical") * moveSpeed;
+        //  v   moving  v
 
-        inputVector = new Vector3(horizontal, rigidbody.velocity.y, vertical);
-
-        Vector3 currDirection;
-
-        if (horizontal == 0 && vertical == 0){
-            currDirection = oldDirection;
+        float translation = Input.GetAxis("Vertical") * moveSpeed;
+        float rotation = Input.GetAxis("Horizontal") * rotateSpeed;
+        translation *= Time.deltaTime;
+        rotation *= Time.deltaTime;
+        transform.Translate(0, 0, translation);
+        transform.Rotate(0, rotation, 0);
+        if (translation > 0)
+        {
+            anim.SetBool("isRunning", true);
+            anim.SetBool("isIddle", false);
         }
-        else {
-            currDirection = new Vector3(horizontal, 0.0f, vertical);
-            oldDirection = currDirection;
+        else if(translation < 0)
+        {
+            anim.SetBool("isRunningBackward", true);
+            anim.SetBool("isIddle", false);
         }
-
-        transform.rotation = Quaternion.RotateTowards(
-                                            transform.rotation,
-                                            Quaternion.LookRotation(currDirection),
-                                            rotateSpeed);
-
-
-
-        rigidbody.velocity = inputVector;
+        else
+        {
+            anim.SetBool("isRunningBackward", false);
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isIddle", true);
+        }
 
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
+            anim.SetTrigger("isJumping");
             rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            anim.SetTrigger("isAttacking");
+
+        }
+
+
+
+        // Health part
+        if (health > numOfHearts)
+            health = numOfHearts;
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < health)
+                hearts[i].sprite = fullHeart;
+            else
+                hearts[i].sprite = emptyHeart;
+
+            if (i < numOfHearts)
+                hearts[i].enabled = true;
+            else
+                hearts[i].enabled = false;
+        }
+
     }
 
     private bool IsGrounded()
@@ -67,28 +111,54 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.CompareTag("PointE"))
+        switch (collider.gameObject.tag)
         {
-            collider.gameObject.SetActive(false);
-            Destroy(collider.gameObject);
-            pointsE++;
-            pointsEText.text = "x " + pointsE.ToString();
-        }
-        else if (collider.gameObject.CompareTag("PointPi"))
-        {
-            collider.gameObject.SetActive(false);
-            Destroy(collider.gameObject);
-            pointsPi++;
-            pointsPiText.text = "x " + pointsPi.ToString();
-        }
-        else if (collider.gameObject.CompareTag("PointFi"))
-        {
-            collider.gameObject.SetActive(false);
-            Destroy(collider.gameObject);
-            pointsFi++;
-            pointsFiText.text = "x " + pointsFi.ToString();
+            case ("PointE"):
+                collider.gameObject.SetActive(false);
+                Destroy(collider.gameObject);
+                pointsE++;
+                pointsEText.text = "x " + pointsE.ToString();
+                break;
+            case ("PointPi"):
+                collider.gameObject.SetActive(false);
+                Destroy(collider.gameObject);
+                pointsPi++;
+                pointsPiText.text = "x " + pointsPi.ToString();
+                break;
+            case ("PointFi"):
+                collider.gameObject.SetActive(false);
+                Destroy(collider.gameObject);
+                pointsFi++;
+                pointsFiText.text = "x " + pointsFi.ToString();
+                break;
+            case ("Obstacle"):
+                Hurt();
+                anim.SetTrigger("isHurted");
+                break;
+            case ("Heart"):
+                if (health < 5)
+                {
+                    collider.gameObject.SetActive(false);
+                    health++;
+                    Destroy(collider.gameObject);
+                }
+                break;
         }
 
-        Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi}");
+        Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi} Hearts: {health}");
+    }
+
+    private void Hurt()
+    {
+        if (health > 0)
+            health--;
+
+        if (health == 0)
+        {
+            gameOverText.text = "GAME OVER"; 
+            gameOverImage.rectTransform.sizeDelta = new Vector2(1066, 508);
+        }
+
+        rigidbody.AddForce(Vector3.back * 5, ForceMode.Impulse);
     }
 }
