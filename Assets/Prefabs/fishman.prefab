@@ -473,11 +473,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1216368480272388965}
-  - component: {fileID: 5044388256802916639}
   - component: {fileID: 1993608218486393298}
   - component: {fileID: 1993608218486393299}
   - component: {fileID: 1993608218486393296}
   - component: {fileID: 1993608218486393297}
+  - component: {fileID: -355855130889232260}
   m_Layer: 0
   m_Name: fishman
   m_TagString: Untagged
@@ -501,25 +501,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 120, z: 0}
---- !u!95 &5044388256802916639
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1993608218486393311}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c0a34f49af49fbf4381268af3f24096d, type: 3}
-  m_Controller: {fileID: 9100000, guid: bf41d069a338042458a4f0d549656ec6, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!54 &1993608218486393298
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -564,7 +545,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 100
-  m_StoppingDistance: 1
+  m_StoppingDistance: 2.2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -586,6 +567,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookRadius: 10
   target: {fileID: 0}
+--- !u!95 &-355855130889232260
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993608218486393311}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: c0a34f49af49fbf4381268af3f24096d, type: 3}
+  m_Controller: {fileID: 9100000, guid: bf41d069a338042458a4f0d549656ec6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2248522307392126384
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //  v   moving  v
-
         float translation = Input.GetAxis("Vertical") * moveSpeed;
         float rotation = Input.GetAxis("Horizontal") * rotateSpeed;
         translation *= Time.deltaTime;
@@ -79,14 +78,11 @@ public class PlayerController : MonoBehaviour
             rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             anim.SetTrigger("isAttacking");
 
         }
-
-
 
         // Health part
         if (health > numOfHearts)
@@ -148,7 +144,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi} Hearts: {health}");
     }
 
-    private void Hurt()
+    public void Hurt()
     {
         if (health > 0)
             health--;

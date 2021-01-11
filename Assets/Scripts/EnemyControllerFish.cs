@@ -13,13 +13,12 @@ public class EnemyControllerFish : MonoBehaviour
 
     new private Collider playerCollider;
     // v   ANIMATIONS   v
-    static Animator anim;
+    Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         //target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
-
         playerCollider = GetComponent<Collider>();
         anim = GetComponent<Animator>();
     }
@@ -28,13 +27,11 @@ public class EnemyControllerFish : MonoBehaviour
     void Update()
     {
         float distance = Vector3.Distance(target.position, transform.position);
-        
         if(distance <= lookRadius)
         {
+            FaceTarget();
             agent.SetDestination(target.position);
 
-            anim.SetBool("isRunning", true);
-            anim.SetBool("isIddle", false);
             if(distance <= agent.stoppingDistance)
             {
                 //Attack target
@@ -42,6 +39,11 @@ public class EnemyControllerFish : MonoBehaviour
                 anim.SetBool("isRunning", false);
                 anim.SetBool("isIddle", false);
                 anim.SetTrigger("isAttacking");
+            }
+            else
+            {
+                anim.SetBool("isRunning", true);
+                anim.SetBool("isIddle", false);
             }
         }
         else 
