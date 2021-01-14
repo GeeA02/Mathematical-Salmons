@@ -53,14 +53,16 @@ public class PlayerController : MonoBehaviour
         float rotation = Input.GetAxis("Horizontal") * rotateSpeed;
         translation *= Time.deltaTime;
         rotation *= Time.deltaTime;
+
         transform.Translate(0, 0, translation);
         transform.Rotate(0, rotation, 0);
+
         if (translation > 0)
         {
             anim.SetBool("isRunning", true);
             anim.SetBool("isIddle", false);
         }
-        else if(translation < 0)
+        else if (translation < 0)
         {
             anim.SetBool("isRunningBackward", true);
             anim.SetBool("isIddle", false);
@@ -109,29 +111,29 @@ public class PlayerController : MonoBehaviour
     {
         switch (collider.gameObject.tag)
         {
-            case ("PointE"):
+            case "PointE":
                 collider.gameObject.SetActive(false);
                 Destroy(collider.gameObject);
                 pointsE++;
-                pointsEText.text = "x " + pointsE.ToString();
+                pointsEText.text = $"x {pointsE}";
                 break;
-            case ("PointPi"):
+            case "PointPi":
                 collider.gameObject.SetActive(false);
                 Destroy(collider.gameObject);
                 pointsPi++;
-                pointsPiText.text = "x " + pointsPi.ToString();
+                pointsPiText.text = $"x {pointsPi}";
                 break;
-            case ("PointFi"):
+            case "PointFi":
                 collider.gameObject.SetActive(false);
                 Destroy(collider.gameObject);
                 pointsFi++;
-                pointsFiText.text = "x " + pointsFi.ToString();
+                pointsFiText.text = $"x {pointsFi}";
                 break;
-            case ("Obstacle"):
+            case "Obstacle":
                 Hurt();
                 anim.SetTrigger("isHurted");
                 break;
-            case ("Heart"):
+            case "Heart":
                 if (health < 5)
                 {
                     collider.gameObject.SetActive(false);
@@ -139,9 +141,14 @@ public class PlayerController : MonoBehaviour
                     Destroy(collider.gameObject);
                 }
                 break;
+            case "Fishman":
+                // o
+                if(anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
+                    collider.gameObject.SendMessage("Damage");
+                break;
         }
 
-        Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi} Hearts: {health}");
+        // Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi} Hearts: {health}");
     }
 
     public void Hurt()
@@ -151,10 +158,15 @@ public class PlayerController : MonoBehaviour
 
         if (health == 0)
         {
-            gameOverText.text = "GAME OVER"; 
+            gameOverText.text = "GAME OVER";
             gameOverImage.rectTransform.sizeDelta = new Vector2(1066, 508);
         }
 
         rigidbody.AddForce(Vector3.back * 5, ForceMode.Impulse);
+    }
+
+    void Damage()
+    {
+        Hurt();
     }
 }

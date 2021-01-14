@@ -567,6 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookRadius: 10
   target: {fileID: 0}
+  player: {fileID: 7224664329164536849, guid: 8c184c191f19a51428c987d62b2c264d, type: 3}
 --- !u!95 &-355855130889232260
 Animator:
   serializedVersion: 3

@@ -10,6 +10,7 @@ TagManager:
   - PointFi
   - Heart
   - Obstacle
+  - Fishman
   layers:
   - Default
   - TransparentFX

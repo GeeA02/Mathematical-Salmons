@@ -12,6 +12,11 @@ public class EnemyControllerFish : MonoBehaviour
     NavMeshAgent agent;
 
     new private Collider playerCollider;
+    public GameObject player;
+
+    private uint health = 2;
+    new private Rigidbody rigidbody;
+
     // v   ANIMATIONS   v
     Animator anim;
     // Start is called before the first frame update
@@ -21,18 +26,20 @@ public class EnemyControllerFish : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         playerCollider = GetComponent<Collider>();
         anim = GetComponent<Animator>();
+
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float distance = Vector3.Distance(target.position, transform.position);
-        if(distance <= lookRadius)
+        if (distance <= lookRadius)
         {
             FaceTarget();
             agent.SetDestination(target.position);
 
-            if(distance <= agent.stoppingDistance)
+            if (distance <= agent.stoppingDistance)
             {
                 //Attack target
                 FaceTarget();
@@ -46,7 +53,7 @@ public class EnemyControllerFish : MonoBehaviour
                 anim.SetBool("isIddle", false);
             }
         }
-        else 
+        else
         {
             anim.SetBool("isRunning", false);
             anim.SetBool("isIddle", true);
@@ -64,5 +71,27 @@ public class EnemyControllerFish : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+    }
+
+    void EndAttack()
+    {
+        var dist = Vector3.Distance(player.transform.position, this.transform.position);
+
+        if (dist < 3.0f)
+            player.SendMessage("Damage");
+    }
+
+    void Damage()
+    {
+        Debug.Log("Ouch");
+        if (health > 0)
+            health--;
+
+        if (health == 0)
+        {
+            Destroy(gameObject);
+        }
+
+        rigidbody.AddForce(Vector3.back * 2, ForceMode.Impulse);
     }
 }
