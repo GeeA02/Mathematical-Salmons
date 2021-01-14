@@ -17,6 +17,8 @@ public class EnemyControllerFish : MonoBehaviour
     private uint health = 2;
     new private Rigidbody rigidbody;
 
+    public GameObject deathParticles;
+
     // v   ANIMATIONS   v
     Animator anim;
     // Start is called before the first frame update
@@ -89,6 +91,8 @@ public class EnemyControllerFish : MonoBehaviour
 
         if (health == 0)
         {
+            var particlePos = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
+            Instantiate(deathParticles, particlePos, Quaternion.identity);
             Destroy(gameObject);
         }
 
