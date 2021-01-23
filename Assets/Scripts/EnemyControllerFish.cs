@@ -10,12 +10,10 @@ public class EnemyControllerFish : MonoBehaviour
 
     public Transform target;
     NavMeshAgent agent;
-
-    new private Collider playerCollider;
+    
     public GameObject player;
 
     private uint health = 2;
-    new private Rigidbody rigidbody;
 
     public GameObject deathParticles;
 
@@ -24,12 +22,8 @@ public class EnemyControllerFish : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
-        playerCollider = GetComponent<Collider>();
         anim = GetComponent<Animator>();
-
-        rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -64,8 +58,8 @@ public class EnemyControllerFish : MonoBehaviour
 
     void FaceTarget()
     {
-        Vector3 direction = (target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        var direction = (target.position - transform.position).normalized;
+        var lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
@@ -95,7 +89,5 @@ public class EnemyControllerFish : MonoBehaviour
             Instantiate(deathParticles, particlePos, Quaternion.identity);
             Destroy(gameObject);
         }
-
-        rigidbody.AddForce(Vector3.back * 2, ForceMode.Impulse);
     }
 }

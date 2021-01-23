@@ -32,9 +32,7 @@ public class PlayerController : MonoBehaviour
     public Sprite emptyHeart;
 
     new private Rigidbody rigidbody;
-    new private Collider playerCollider;
-    private Vector3 inputVector;
-    private Vector3 oldDirection;
+    private Collider playerCollider;
 
     // v   ANIMATIONS   v
     static Animator anim;
@@ -49,8 +47,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //  v   moving  v
-        float translation = Input.GetAxis("Vertical") * moveSpeed;
-        float rotation = Input.GetAxis("Horizontal") * rotateSpeed;
+        var translation = Input.GetAxis("Vertical") * moveSpeed;
+        var rotation = Input.GetAxis("Horizontal") * rotateSpeed;
         translation *= Time.deltaTime;
         rotation *= Time.deltaTime;
 
@@ -89,7 +87,7 @@ public class PlayerController : MonoBehaviour
         // Health part
         if (health > numOfHearts)
             health = numOfHearts;
-        for (int i = 0; i < hearts.Length; i++)
+        for (var i = 0; i < hearts.Length; i++)
         {
             if (i < health)
                 hearts[i].sprite = fullHeart;
@@ -142,13 +140,10 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case "Fishman":
-                // o
                 if(anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
                     collider.gameObject.SendMessage("Damage");
                 break;
         }
-
-        // Debug.Log($"E: {pointsE}  Pi: {pointsPi}  Fi: {pointsFi} Hearts: {health}");
     }
 
     public void Hurt()
@@ -162,7 +157,7 @@ public class PlayerController : MonoBehaviour
             gameOverImage.rectTransform.sizeDelta = new Vector2(1066, 508);
         }
 
-        rigidbody.AddForce(Vector3.back * 5, ForceMode.Impulse);
+        rigidbody.AddForce(new Vector3(0,4,-2), ForceMode.Impulse);
     }
 
     void Damage()
