@@ -140,8 +140,9 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case "Fishman":
-                if(anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
                     collider.gameObject.SendMessage("Damage");
+
                 break;
         }
     }
