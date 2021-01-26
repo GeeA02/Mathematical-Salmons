@@ -3961,6 +3961,14 @@ PrefabInstance:
       propertyPath: m_StoppingDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -989541972478487280, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -989541972478487280, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 336653101439924102, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
       propertyPath: m_Name
       value: stranger
@@ -4031,6 +4039,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3438416266185835896, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
       propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850987895752410278, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

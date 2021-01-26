@@ -90,17 +90,9 @@ public class EnemyControllerStranger : MonoBehaviour
 
     void InvokeSpell()
     {
-        var direction = (target.position - firePoint.position).normalized;
-
-        if (Physics.Raycast(target.position, direction, out var hit))
-            destinationOfProjectile = hit.point;
-
-        InstantiateProjectile();
-    }
-
-    void InstantiateProjectile()
-    {
-        var projectileObj = Instantiate(projectile, firePoint.position, Quaternion.identity) as GameObject;
-        projectileObj.GetComponent<Rigidbody>().velocity = (destinationOfProjectile - firePoint.position).normalized * projectileSpeed;
+        var projectileObj = Instantiate(projectile, firePoint.position, Quaternion.identity);
+        var foo = target.position;
+        foo.y += 1.5f;
+        projectileObj.GetComponent<Rigidbody>().velocity = (foo - firePoint.position).normalized * projectileSpeed;
     }
 }
