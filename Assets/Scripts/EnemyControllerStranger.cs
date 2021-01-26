@@ -11,11 +11,16 @@ public class EnemyControllerStranger : MonoBehaviour
     public Transform target;
     NavMeshAgent agent;
 
-    public GameObject player;
-
     private uint health = 2;
 
     public GameObject deathParticles;
+
+
+    // Projectile
+    private Vector3 destinationOfProjectile;
+    public GameObject projectile;
+    public Transform firePoint;
+    public float projectileSpeed = 100;
 
     // v   ANIMATIONS   v
     Animator anim;
@@ -69,17 +74,8 @@ public class EnemyControllerStranger : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
 
-    void EndAttack()
-    {
-        var dist = Vector3.Distance(player.transform.position, this.transform.position);
-
-        if (dist < 3.0f)
-            player.SendMessage("Damage");
-    }
-
     void Damage()
     {
-        Debug.Log("Ouch");
         if (health > 0)
             health--;
 
@@ -89,5 +85,21 @@ public class EnemyControllerStranger : MonoBehaviour
             Instantiate(deathParticles, particlePos, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    void InvokeSpell()
+    {
+        var direction = (target.position - firePoint.position).normalized;
+
+        if (Physics.Raycast(target.position, direction, out var hit))
+            destinationOfProjectile = hit.point;
+
+        InstantiateProjectile();
+    }
+
+    void InstantiateProjectile()
+    {
+        var projectileObj = Instantiate(projectile, firePoint.position, Quaternion.identity) as GameObject;
+        projectileObj.GetComponent<Rigidbody>().velocity = (destinationOfProjectile - firePoint.position).normalized * projectileSpeed;
     }
 }

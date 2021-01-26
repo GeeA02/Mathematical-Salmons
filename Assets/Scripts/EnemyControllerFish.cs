@@ -79,7 +79,6 @@ public class EnemyControllerFish : MonoBehaviour
 
     void Damage()
     {
-        Debug.Log("Ouch");
         if (health > 0)
             health--;
 

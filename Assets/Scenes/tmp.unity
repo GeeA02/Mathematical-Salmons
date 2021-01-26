@@ -334,6 +334,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 583043579}
   offsetPosition: {x: 0, y: 5, z: -7}
+--- !u!4 &221516541 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1799567607148015396, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
+  m_PrefabInstance: {fileID: 5907092561037420867}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &222048800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3944,6 +3949,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -989541972478487280, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 336653101439924102, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
       propertyPath: m_Name
       value: stranger
@@ -3964,6 +3973,10 @@ PrefabInstance:
       propertyPath: lookRadius
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 935078091736980213, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 221516541}
     - target: {fileID: 1146122789639187772, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.1
@@ -4008,27 +4021,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3438416266185835896, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
---- !u!1 &6149169777846836933 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 336653101439924102, guid: acf84d0dc24fce64c92a0fdcb761c291, type: 3}
-  m_PrefabInstance: {fileID: 5907092561037420867}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &6149169777846836934
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6149169777846836933}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3451341277758316768, guid: 1033d4f650598b64dafb184ef00379a3, type: 3}
 --- !u!1001 &7621272596442101586
 PrefabInstance:
   m_ObjectHideFlags: 0

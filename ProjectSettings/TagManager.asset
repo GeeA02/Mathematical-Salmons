@@ -11,6 +11,8 @@ TagManager:
   - Heart
   - Obstacle
   - Fishman
+  - Stranger
+  - Stranger_Projetile
   layers:
   - Default
   - TransparentFX
