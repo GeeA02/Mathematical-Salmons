@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookRadius: 10
-  target: {fileID: 0}
+  target: {fileID: 8000918797403416235, guid: 8c184c191f19a51428c987d62b2c264d, type: 3}
   player: {fileID: 7224664329164536849, guid: 8c184c191f19a51428c987d62b2c264d, type: 3}
   deathParticles: {fileID: 2859795747050456062, guid: 21663c1d91dbb284593fd670e7f96be9, type: 3}
 --- !u!95 &-355855130889232260
