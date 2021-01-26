@@ -1621,7 +1621,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1428934880}
-  m_RootOrder: 17
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 27.33, y: 0, z: 0}
 --- !u!4 &1241683132 stripped
 Transform:
@@ -1769,6 +1769,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 583043579}
+    - target: {fileID: 1993608218486393297, guid: 5e7d5905fc461f14481499ede6ffaa80, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1644155589}
     - target: {fileID: 1993608218486393298, guid: 5e7d5905fc461f14481499ede6ffaa80, type: 3}
       propertyPath: m_IsKinematic
       value: 0
@@ -1877,6 +1881,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1083905069}
+  - {fileID: 1178280378}
   - {fileID: 260240041}
   - {fileID: 1473445166}
   - {fileID: 191106903}
@@ -1893,7 +1898,6 @@ Transform:
   - {fileID: 1365875429}
   - {fileID: 940615675}
   - {fileID: 1583281091}
-  - {fileID: 1178280378}
   - {fileID: 1363286894}
   - {fileID: 1285132896}
   - {fileID: 551560986}
@@ -3186,6 +3190,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 583043579}
+    - target: {fileID: 1993608218486393297, guid: 5e7d5905fc461f14481499ede6ffaa80, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1644155589}
     - target: {fileID: 1993608218486393311, guid: 5e7d5905fc461f14481499ede6ffaa80, type: 3}
       propertyPath: m_Name
       value: fishman

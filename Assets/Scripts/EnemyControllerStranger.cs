@@ -15,9 +15,7 @@ public class EnemyControllerStranger : MonoBehaviour
 
     public GameObject deathParticles;
 
-
     // Projectile
-    private Vector3 destinationOfProjectile;
     public GameObject projectile;
     public Transform firePoint;
     public float projectileSpeed = 100;
@@ -35,7 +33,7 @@ public class EnemyControllerStranger : MonoBehaviour
     void Update()
     {
         agent.enabled = !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack");
-        float distance = Vector3.Distance(target.position, transform.position);
+        var distance = Vector3.Distance(target.position, transform.position);
 
         if (distance <= lookRadius)
         {
@@ -64,7 +62,7 @@ public class EnemyControllerStranger : MonoBehaviour
             anim.SetBool("isIddle", true);
         }
     }
-    
+
     void FaceTarget()
     {
         var direction = (target.position - transform.position).normalized;

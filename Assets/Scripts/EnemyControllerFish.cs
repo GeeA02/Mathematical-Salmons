@@ -8,9 +8,8 @@ public class EnemyControllerFish : MonoBehaviour
 {
     public float lookRadius = 10f;
 
-    public Transform target;
     NavMeshAgent agent;
-    
+
     public GameObject player;
 
     private uint health = 2;
@@ -30,13 +29,13 @@ public class EnemyControllerFish : MonoBehaviour
     void Update()
     {
         agent.enabled = !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack");
-        float distance = Vector3.Distance(target.position, transform.position);
+        var distance = Vector3.Distance(player.transform.position, transform.position);
 
         if (distance <= lookRadius)
         {
             FaceTarget();
             if (agent.enabled)
-                agent.SetDestination(target.position);
+                agent.SetDestination(player.transform.position);
 
             if (distance <= agent.stoppingDistance && !anim.GetBool("isAttacking"))
             {
@@ -62,7 +61,7 @@ public class EnemyControllerFish : MonoBehaviour
 
     void FaceTarget()
     {
-        var direction = (target.position - transform.position).normalized;
+        var direction = (player.transform.position - transform.position).normalized;
         var lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
@@ -75,7 +74,7 @@ public class EnemyControllerFish : MonoBehaviour
 
     void EndAttack()
     {
-        var dist = Vector3.Distance(target.position, transform.position);
+        var dist = Vector3.Distance(player.transform.position, transform.position);
 
         if (dist < 3.0f)
             player.SendMessage("Damage");
