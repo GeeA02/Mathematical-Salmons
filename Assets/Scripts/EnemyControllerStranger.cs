@@ -34,24 +34,28 @@ public class EnemyControllerStranger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        agent.enabled = !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack");
         float distance = Vector3.Distance(target.position, transform.position);
+
         if (distance <= lookRadius)
         {
             FaceTarget();
-            agent.SetDestination(target.position);
+            if (agent.enabled)
+                agent.SetDestination(target.position);
 
-            if (distance <= agent.stoppingDistance)
+            if (distance <= agent.stoppingDistance && !anim.GetBool("isAttacking"))
             {
                 //Attack target
                 FaceTarget();
                 anim.SetBool("isRunning", false);
                 anim.SetBool("isIddle", false);
-                anim.SetTrigger("isAttacking");
+                anim.SetBool("isAttacking", true);
             }
             else
             {
                 anim.SetBool("isRunning", true);
                 anim.SetBool("isIddle", false);
+                anim.SetBool("isAttacking", false);
             }
         }
         else
@@ -60,7 +64,7 @@ public class EnemyControllerStranger : MonoBehaviour
             anim.SetBool("isIddle", true);
         }
     }
-
+    
     void FaceTarget()
     {
         var direction = (target.position - transform.position).normalized;
