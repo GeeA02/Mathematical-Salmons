@@ -46,14 +46,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //  v   moving  v
         var translation = Input.GetAxis("Vertical") * moveSpeed;
-        var rotation = Input.GetAxis("Horizontal") * rotateSpeed;
-        translation *= Time.deltaTime;
-        rotation *= Time.deltaTime;
 
-        transform.Translate(0, 0, translation);
-        transform.Rotate(0, rotation, 0);
+        //  v   moving  v
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
+        {
+            var rotation = Input.GetAxis("Horizontal") * rotateSpeed;
+            translation *= Time.deltaTime;
+            rotation *= Time.deltaTime;
+            transform.Translate(0, 0, translation);
+            transform.Rotate(0, rotation, 0);
+        }
+
 
         if (translation > 0)
         {
@@ -81,7 +85,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             anim.SetTrigger("isAttacking");
-
         }
 
         // Health part
