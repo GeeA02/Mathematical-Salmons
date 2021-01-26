@@ -140,9 +140,9 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case "Fishman":
+            case "Stranger":
                 if (anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
                     collider.gameObject.SendMessage("Damage");
-
                 break;
         }
     }
