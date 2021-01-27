@@ -139,6 +139,9 @@ MonoBehaviour:
   projectile: {fileID: 4577145379817614808, guid: 2843a6c643cb62d479d1407c74c6b490, type: 3}
   firePoint: {fileID: 0}
   projectileSpeed: 30
+  blink: 0.1
+  immuned: 2
+  modelRender: {fileID: 3713537176583288695}
 --- !u!1 &386388100277037022
 GameObject:
   m_ObjectHideFlags: 0
