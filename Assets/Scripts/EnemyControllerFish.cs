@@ -18,6 +18,12 @@ public class EnemyControllerFish : MonoBehaviour
 
     // v   ANIMATIONS   v
     Animator anim;
+
+    //  v   SOUNDS      v
+    public AudioSource Iddle;
+    public AudioSource Walk;
+    public AudioSource Hit; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +46,10 @@ public class EnemyControllerFish : MonoBehaviour
             if (distance <= agent.stoppingDistance && !anim.GetBool("isAttacking"))
             {
                 //Attack target
+                if (!Hit.isPlaying)
+                    Hit.Play();
+                Walk.Stop();
+                Iddle.Stop();
                 FaceTarget();
                 anim.SetBool("isRunning", false);
                 anim.SetBool("isIddle", false);
@@ -47,6 +57,9 @@ public class EnemyControllerFish : MonoBehaviour
             }
             else
             {
+                Iddle.Stop();
+                if (!Walk.isPlaying)
+                    Walk.Play();
                 anim.SetBool("isRunning", true);
                 anim.SetBool("isIddle", false);
                 anim.SetBool("isAttacking", false);
@@ -56,6 +69,9 @@ public class EnemyControllerFish : MonoBehaviour
         {
             anim.SetBool("isRunning", false);
             anim.SetBool("isIddle", true);
+            Walk.Stop();
+            if (!Iddle.isPlaying)
+                Iddle.PlayDelayed(Random.Range(0.0f, 3.0f));
         }
     }
 
