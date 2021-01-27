@@ -22,6 +22,11 @@ public class EnemyControllerStranger : MonoBehaviour
 
     // v   ANIMATIONS   v
     Animator anim;
+
+    //  v   SOUNDS      v
+    public AudioSource Iddle;
+    public AudioSource Hit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +49,9 @@ public class EnemyControllerStranger : MonoBehaviour
             if (distance <= agent.stoppingDistance && !anim.GetBool("isAttacking"))
             {
                 //Attack target
+                Iddle.Stop();
+                if (!Hit.isPlaying)
+                    Hit.PlayDelayed(0.5f);
                 FaceTarget();
                 anim.SetBool("isRunning", false);
                 anim.SetBool("isIddle", false);
@@ -60,6 +68,8 @@ public class EnemyControllerStranger : MonoBehaviour
         {
             anim.SetBool("isRunning", false);
             anim.SetBool("isIddle", true);
+            if (!Iddle.isPlaying)
+                Iddle.PlayDelayed(Random.Range(0.0f, 3.0f));
         }
     }
 

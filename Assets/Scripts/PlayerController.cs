@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
                 collider.gameObject.SetActive(false);
                 Destroy(collider.gameObject);
                 pointsFi++;
-                pointsFiText.text = $"x {pointsFi}";
+                pointsFiText.text = $" x {pointsFi}";
                 PickupPoint.Play();
                 break;
             case "Obstacle":
