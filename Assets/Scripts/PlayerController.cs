@@ -37,6 +37,12 @@ public class PlayerController : MonoBehaviour
     // v   ANIMATIONS   v
     static Animator anim;
 
+    //  v   SOUNDS      v
+    public AudioSource PickupPoint;
+    public AudioSource PickupHealth;
+    public AudioSource Footstep;
+    public AudioSource Hit;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -51,6 +57,7 @@ public class PlayerController : MonoBehaviour
         //  v   moving  v
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
         {
+            Hit.PlayDelayed(0.5f);
             var rotation = Input.GetAxis("Horizontal") * rotateSpeed;
             translation *= Time.deltaTime;
             rotation *= Time.deltaTime;
@@ -63,11 +70,15 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("isRunning", true);
             anim.SetBool("isIddle", false);
+            if(!Footstep.isPlaying)
+                Footstep.Play();
         }
         else if (translation < 0)
         {
             anim.SetBool("isRunningBackward", true);
             anim.SetBool("isIddle", false);
+            if (!Footstep.isPlaying)
+                Footstep.Play();
         }
         else
         {
@@ -75,6 +86,9 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isRunning", false);
             anim.SetBool("isIddle", true);
         }
+
+        if (!IsGrounded())
+            Footstep.Stop();
 
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
@@ -106,7 +120,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool IsGrounded()
-    => Physics.Raycast(transform.position, Vector3.down, playerCollider.bounds.size.y);
+    => Physics.Raycast(transform.position, Vector3.down, playerCollider.bounds.extents.y - 0.1f);
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -117,18 +131,21 @@ public class PlayerController : MonoBehaviour
                 Destroy(collider.gameObject);
                 pointsE++;
                 pointsEText.text = $"x {pointsE}";
+                PickupPoint.Play();
                 break;
             case "PointPi":
                 collider.gameObject.SetActive(false);
                 Destroy(collider.gameObject);
                 pointsPi++;
                 pointsPiText.text = $"x {pointsPi}";
+                PickupPoint.Play();
                 break;
             case "PointFi":
                 collider.gameObject.SetActive(false);
                 Destroy(collider.gameObject);
                 pointsFi++;
                 pointsFiText.text = $"x {pointsFi}";
+                PickupPoint.Play();
                 break;
             case "Obstacle":
                 Hurt();
@@ -140,6 +157,7 @@ public class PlayerController : MonoBehaviour
                     collider.gameObject.SetActive(false);
                     health++;
                     Destroy(collider.gameObject);
+                    PickupHealth.Play();
                 }
                 break;
             case "Fishman":
@@ -168,4 +186,5 @@ public class PlayerController : MonoBehaviour
     {
         Hurt();
     }
+
 }
