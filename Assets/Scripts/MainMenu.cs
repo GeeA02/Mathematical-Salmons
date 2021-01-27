@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
 
     private void OnMouseUp()
     {
+        Debug.Log(Click);
         Click.Play();
         if(isStart)
         {
