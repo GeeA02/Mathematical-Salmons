@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
     {
         if(isStart)
         {
-            SceneManager.LoadScene("tmp");
+            SceneManager.LoadScene("map1");
         }
         if(isQuit)
         {
