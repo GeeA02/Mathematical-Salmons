@@ -1922,6 +1922,9 @@ MonoBehaviour:
   hearts: []
   fullHeart: {fileID: 21300000, guid: 50dfab23bf5a7334f90e00a929425a9d, type: 3}
   emptyHeart: {fileID: 21300000, guid: 921d9c43e87a0b0499b6e79674ac5270, type: 3}
+  blink: 0.1
+  immuned: 2
+  modelRender: {fileID: 6009494844616064224}
 --- !u!54 &1403077460731031754
 Rigidbody:
   m_ObjectHideFlags: 0
