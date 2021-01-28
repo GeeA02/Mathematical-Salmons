@@ -588,6 +588,9 @@ MonoBehaviour:
   Iddle: {fileID: 8002351756189475065}
   Walk: {fileID: 5563221825039296921}
   Hit: {fileID: 8120765698069597974}
+  blink: 0.1
+  immuned: 2
+  modelRender: {fileID: 7506033428452952044}
 --- !u!95 &-355855130889232260
 Animator:
   serializedVersion: 3

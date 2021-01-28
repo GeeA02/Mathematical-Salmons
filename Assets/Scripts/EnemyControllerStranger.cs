@@ -27,6 +27,13 @@ public class EnemyControllerStranger : MonoBehaviour
     public AudioSource Iddle;
     public AudioSource Hit;
 
+    // v BLINKING v
+    public float blink = 0.1f;
+    public float immuned = 2f;
+    public Renderer modelRender;
+    private float blinkTime = 0.1f;
+    private float immunedTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +44,22 @@ public class EnemyControllerStranger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // v blinking v
+        if (immunedTime > 0)
+        {
+            immunedTime -= Time.deltaTime;
+            blinkTime -= Time.deltaTime;
+
+            if (blinkTime <= 0)
+            {
+                modelRender.enabled = !modelRender.enabled;
+                blinkTime = blink;
+            }
+
+            if (immunedTime <= 0)
+                modelRender.enabled = true;
+        }
+
         agent.enabled = !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack");
         var distance = Vector3.Distance(target.position, transform.position);
 
@@ -88,15 +111,23 @@ public class EnemyControllerStranger : MonoBehaviour
 
     void Damage()
     {
-        if (health > 0)
-            health--;
-
-        if (health == 0)
+        if (immunedTime <= 0)
         {
-            var particlePos = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
-            var death = Instantiate(deathParticles, particlePos, Quaternion.identity);
-            Destroy(gameObject);
-            Destroy(death, 5);
+            if (health > 0)
+                health--;
+
+            if (health == 0)
+            {
+                var particlePos = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
+                var death = Instantiate(deathParticles, particlePos, Quaternion.identity);
+                Destroy(gameObject);
+                Destroy(death, 5);
+            }
+
+            immunedTime = immuned;
+            modelRender.enabled = true;
+
+            blinkTime = blink;
         }
     }
 

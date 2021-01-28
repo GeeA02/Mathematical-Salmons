@@ -2246,6 +2246,9 @@ MonoBehaviour:
   PickupHealth: {fileID: 723007216641389279}
   Footstep: {fileID: 6942563833443446727}
   Hit: {fileID: 7230352984032339032}
+  blink: 0.1
+  immuned: 2
+  modelRender: {fileID: 6009494844616064224}
 --- !u!54 &1403077460731031754
 Rigidbody:
   m_ObjectHideFlags: 0
