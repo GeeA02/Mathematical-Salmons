@@ -45,6 +45,14 @@ namespace Player
         public AudioSource Footstep;
         public AudioSource Hit;
 
+        // v BLINKING v
+        public float blink = 0.1f;
+        public float immuned = 2f;
+        public Renderer modelRender;
+        private float blinkTime = 0.1f;
+        private float immunedTime;
+
+
         void Start()
         {
             rigidbody = GetComponent<Rigidbody>();
@@ -54,6 +62,22 @@ namespace Player
 
         void Update()
         {
+            // v blinking v
+            if (immunedTime > 0)
+            {
+                immunedTime -= Time.deltaTime;
+                blinkTime -= Time.deltaTime;
+
+                if (blinkTime <= 0)
+                {
+                    modelRender.enabled = !modelRender.enabled;
+                    blinkTime = blink;
+                }
+
+                if (immunedTime <= 0)
+                    modelRender.enabled = true;
+            }
+            
             var translation = Input.GetAxis("Vertical") * moveSpeed;
 
             //  v   moving  v
@@ -160,6 +184,7 @@ namespace Player
                         health++;
                         Destroy(collider.gameObject);
                         PickupHealth.Play();
+                        GameObject.Find("PostProcessingGO").GetComponent<PPController>().ToggleIsAlmostDead(false);
                     }
                     break;
                 case "Fishman":
@@ -172,16 +197,27 @@ namespace Player
 
         public void Hurt()
         {
-            if (health > 0)
-                health--;
-
-            if (health == 0)
+            if (immunedTime <= 0)
             {
-                gameOverText.text = "GAME OVER";
-                gameOverImage.rectTransform.sizeDelta = new Vector2(1066, 508);
-            }
+                if (health > 0)
+                    health--;
 
-            rigidbody.AddForce(new Vector3(0, 4, -2), ForceMode.Impulse);
+                if (health <= 2)
+                    GameObject.Find("PostProcessingGO").GetComponent<PPController>().ToggleIsAlmostDead(true);
+
+                if (health == 0)
+                {
+                    gameOverText.text = "GAME OVER";
+                    gameOverImage.rectTransform.sizeDelta = new Vector2(1066, 508);
+                }
+
+                rigidbody.AddForce(new Vector3(0, 4, -2), ForceMode.Impulse);
+
+                immunedTime = immuned;
+                modelRender.enabled = true;
+
+                blinkTime = blink;
+            }
         }
 
         void Damage()

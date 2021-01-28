@@ -142,6 +142,9 @@ MonoBehaviour:
   projectileSpeed: 30
   Iddle: {fileID: 5617405833414908176}
   Hit: {fileID: 3859006603388612001}
+  blink: 0.1
+  immuned: 2
+  modelRender: {fileID: 3713537176583288695}
 --- !u!1 &386388100277037022
 GameObject:
   m_ObjectHideFlags: 0
