@@ -138,7 +138,7 @@ MonoBehaviour:
   target: {fileID: 8000918797403416235, guid: 8c184c191f19a51428c987d62b2c264d, type: 3}
   deathParticles: {fileID: 2859795747050456062, guid: 21663c1d91dbb284593fd670e7f96be9, type: 3}
   projectile: {fileID: 4577145379817614808, guid: 2843a6c643cb62d479d1407c74c6b490, type: 3}
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 6132259388829249390}
   projectileSpeed: 30
   Iddle: {fileID: 5617405833414908176}
   Hit: {fileID: 3859006603388612001}

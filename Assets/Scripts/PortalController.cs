@@ -46,7 +46,7 @@ namespace Player
         private bool CheckPoints()
         {
             uint points = PlayerController.pointsPi + PlayerController.pointsE + PlayerController.pointsFi;
-            return (requiredPoints - points) == 0;
+            return (requiredPoints - points) <= 0;
         }
 
         private void DisplayMesseage(string text)
