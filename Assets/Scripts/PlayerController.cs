@@ -184,6 +184,7 @@ namespace Player
                         health++;
                         Destroy(collider.gameObject);
                         PickupHealth.Play();
+                        GameObject.Find("PostProcessingGO").GetComponent<PPController>().ToggleIsAlmostDead(false);
                     }
                     break;
                 case "Fishman":
@@ -200,6 +201,9 @@ namespace Player
             {
                 if (health > 0)
                     health--;
+
+                if (health <= 2)
+                    GameObject.Find("PostProcessingGO").GetComponent<PPController>().ToggleIsAlmostDead(true);
 
                 if (health == 0)
                 {
