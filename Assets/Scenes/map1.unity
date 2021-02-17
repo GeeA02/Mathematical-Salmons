@@ -2728,6 +2728,14 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1149717873}
+    - target: {fileID: 278684050117020526, guid: fd83708e3c35a684389202b9c4841167, type: 3}
+      propertyPath: offsetPosition.y
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 278684050117020526, guid: fd83708e3c35a684389202b9c4841167, type: 3}
+      propertyPath: lookAt
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7051943968000747408, guid: fd83708e3c35a684389202b9c4841167, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
